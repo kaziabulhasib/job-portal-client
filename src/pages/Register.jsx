@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import lottieAnimation from "../assets/registeranimation.json";
 import Lottie from "lottie-react";
+import AuthContext from "../context/AuthContext";
 
 function Register() {
   const [passwordError, setPasswordError] = React.useState("");
-  
+  const { createUser } = useContext(AuthContext);
+
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -20,7 +22,12 @@ function Register() {
     }
     setPasswordError("");
     console.log(email, password);
-    form.reset();
+    createUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+        form.reset();
+      })
+      .catch((error) => console.log(error.message));
   };
   return (
     <div className='hero bg-base-200 min-h-screen'>
@@ -30,7 +37,7 @@ function Register() {
         </div>
         <div className='card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl'>
           <div className='card-body'>
-            <h1 className='text-4xl font-bold ml-2 mt-4'>Login now!</h1>
+            <h1 className='text-4xl font-bold ml-2 mt-4'>Register now!</h1>
             <form onSubmit={handleRegister} className='fieldset'>
               <label className='fieldset-label'>Email</label>
               <input
