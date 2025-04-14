@@ -4,6 +4,7 @@ import auth from "../firebase/firebase.init";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 
 function AuthProvider({ children }) {
@@ -26,7 +27,13 @@ function AuthProvider({ children }) {
       unsubscribe();
     };
   }, []);
-  const authInfo = { user, loading, createUser };
+  // sign in user
+  const signinUser = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
+  // ----------------------------
+  const authInfo = { user, loading, createUser, signinUser };
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

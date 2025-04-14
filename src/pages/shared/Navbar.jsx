@@ -47,7 +47,9 @@ function Navbar() {
       </div>
       <div className='navbar-end'>
         <Link to='/register'>Register</Link>
-        <a className='btn'>sign in</a>
+        <Link to='/login' className='btn mx-6'>
+          Login
+        </Link>
       </div>
     </div>
   );
