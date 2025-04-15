@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.head-text {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.15rem;
+  text-transform: capitalize;
+  text-align: center;
+  border: 1px dashed slategray;
+  padding: 6px;
+}

@@ -1,11 +1,24 @@
-import React, { useContext } from "react";
+import React, { createContext, useContext, useState } from "react";
 import lottieAnimation from "../assets/registeranimation.json";
 import Lottie from "lottie-react";
 import AuthContext from "../context/AuthContext";
+// import { FcGoogle } from "react-icons/fc";
+import { FaGoogle } from "react-icons/fa";
+import auth from "../firebase/firebase.init";
 
 function Register() {
-  const [passwordError, setPasswordError] = React.useState("");
-  const { createUser } = useContext(AuthContext);
+  const [passwordError, setPasswordError] = useState("");
+  const { createUser, googleLogin } = useContext(AuthContext);
+
+  // google log in
+  const handleGoogleLogin = () => {
+    // console.log("logged in ");
+    googleLogin()
+      .then(() => {
+        console.log("sucessfully loggedin ");
+      })
+      .catch((error) => console.log(error));
+  };
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -59,6 +72,12 @@ function Register() {
               </div>
               <button className='btn btn-neutral mt-4'>Register</button>
             </form>
+            <h1 className='head-text'>or logged in via google</h1>
+            <div
+              onClick={handleGoogleLogin}
+              className='bg-slate-200 flex justify-center p-2 cursor-pointer hover:bg-slate-100'>
+              <FaGoogle className='text-4xl ' />
+            </div>
           </div>
         </div>
       </div>

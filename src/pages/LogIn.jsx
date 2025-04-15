@@ -13,7 +13,7 @@ function LogIn() {
     // console.log(email, password);
     signinUser(email, password)
       .then((result) => {
-        console.log("user came from auth", result.user);
+        console.log("user came from auth", result.user.email);
         form.reset();
       })
       .catch((error) => console.log(error.message));
