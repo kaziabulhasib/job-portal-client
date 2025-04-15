@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 
 function Navbar() {
-  const { user, logoutUser,loading } = useContext(AuthContext);
+  const { user, logoutUser, loading } = useContext(AuthContext);
 
   const handleLogout = () => {
     logoutUser();
-    // setLoading(true); 
+    // setLoading(true);
   };
   const links = (
     <>

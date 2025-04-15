@@ -16,6 +16,7 @@ function Register() {
     googleLogin()
       .then(() => {
         console.log("sucessfully loggedin ");
+        toast.success("logged in successfully");
       })
       .catch((error) => console.log(error));
   };
@@ -39,8 +40,12 @@ function Register() {
       .then((result) => {
         console.log(result.user);
         form.reset();
+        toast.success("logged in successfully");
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => {
+        console.log(error.message);
+        toast.error("could not create new user");
+      });
   };
   return (
     <div className='hero bg-base-200 min-h-screen'>

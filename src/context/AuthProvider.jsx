@@ -9,6 +9,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+import toast from "react-hot-toast";
 
 function AuthProvider({ children }) {
   const [user, setUser] = useState();
@@ -18,7 +19,7 @@ function AuthProvider({ children }) {
 
   const googleLogin = () => {
     setLoading(true);
-    return signInWithPopup(auth, provider)
+    return signInWithPopup(auth, provider);
   };
 
   // create a new user
@@ -50,6 +51,7 @@ function AuthProvider({ children }) {
       .then(() => {
         console.log("logged out user");
         setLoading(false);
+        toast.success("logout sucessfully");
       })
       .catch((error) => {
         console.log(error.message);
@@ -57,7 +59,14 @@ function AuthProvider({ children }) {
       });
   };
   // ----------------------------
-  const authInfo = { user, loading, createUser, signinUser, logoutUser,googleLogin };
+  const authInfo = {
+    user,
+    loading,
+    createUser,
+    signinUser,
+    logoutUser,
+    googleLogin,
+  };
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

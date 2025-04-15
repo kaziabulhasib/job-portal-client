@@ -2,9 +2,23 @@ import React, { useContext } from "react";
 import Lottie from "lottie-react";
 import lottieAnimation from "../assets/registeranimation.json";
 import AuthContext from "../context/AuthContext";
+import { FaGoogle } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 function LogIn() {
-  const { signinUser } = useContext(AuthContext);
+  const { signinUser, googleLogin } = useContext(AuthContext);
+
+  // google log in
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then(() => {
+        console.log("sucessfully loggedin ");
+        toast.success("logged in successfully");
+      })
+      .catch((error) => console.log(error));
+  };
+
+  // sign in user
   const handleSignIn = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -15,8 +29,13 @@ function LogIn() {
       .then((result) => {
         console.log("user came from auth", result.user.email);
         form.reset();
+        toast.success("logged in successfully");
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => {
+        console.log(error.message);
+        toast.error("password or id mismatched");
+        form.reset();
+      });
   };
   return (
     <div className='hero bg-base-200 min-h-screen'>
@@ -48,6 +67,12 @@ function LogIn() {
               </div>
               <button className='btn btn-neutral mt-4'>Login</button>
             </form>
+            <h1 className='head-text'>or logged in via google</h1>
+            <div
+              onClick={handleGoogleLogin}
+              className='bg-slate-200 flex justify-center p-2 cursor-pointer hover:bg-slate-100'>
+              <FaGoogle className='text-4xl ' />
+            </div>
           </div>
         </div>
       </div>
